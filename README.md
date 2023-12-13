@@ -4,8 +4,11 @@ A MicroPython based system to control multiple zones of heating. Uses MQTT for r
 
 ## To Do
 
-- [ ] Add support for DS18B20 temperature sensors
-- [ ] Add support for timing schedules
+- [ ] WiFi support
+- [ ] NTP support
+- [ ] Persistent config
 - [ ] Get MQTT working
 - [ ] Enable overrides
 - [ ] Add support for a RTC
+- [x] Add support for timing schedules
+- [x] Add support for DS18B20 temperature sensors
