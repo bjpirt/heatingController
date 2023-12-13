@@ -3,7 +3,7 @@ from config import Config
 from clock import Clock
 from temperature_sensor import TemperatureSensor
 from zone_control import ZoneControl
-from machine import Pin
+from machine import Pin  # type: ignore
 
 
 class Thermostat:
@@ -15,7 +15,6 @@ class Thermostat:
             control_pin = Pin(conf["controlPin"])
             self.zones.append(ZoneControl(zone, conf, clock, sensor, control_pin))
 
-    @property
     def occupied(self, state: bool):
         for zone in self.zones:
             zone.occupied = state

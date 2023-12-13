@@ -8,20 +8,20 @@ from thermostat import Thermostat
 async def update_thermostat(thermostat: Thermostat):
     while True:
         thermostat.process()
-        await asyncio.sleep_ms(500)
+        await asyncio.sleep(0.5)
 
 
 async def print_debug(thermostat: Thermostat):
     while True:
         thermostat.print_debug()
-        await asyncio.sleep_ms(2000)
+        await asyncio.sleep(2)
 
 
 async def loop(t):
     asyncio.create_task(update_thermostat(t))
     asyncio.create_task(print_debug(t))
     while True:
-        await asyncio.sleep_ms(1)
+        await asyncio.sleep(0.001)
 
 
 def main():
