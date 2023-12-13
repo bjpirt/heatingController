@@ -1,24 +1,31 @@
-from typing import Dict
-from machine import Pin  # type: ignore
-import onewire  # type: ignore
-from ds18x20 import DS18X20  # type: ignore
-from .temperature_sensor import TemperatureSensor  # type: ignore
+from typing import Dict, Union
+try:
+    from machine import Pin  # type: ignore
+    import onewire  # type: ignore
+    from ds18x20 import DS18X20  # type: ignore
+except ModuleNotFoundError:
+    pass
+from .temperature_sensor import TemperatureSensor
 
 
 class DS18B20(TemperatureSensor):
-    def __init__(self, config: Dict[str, int]) -> None:
-        ow = onewire.OneWire(Pin(config["pin"], Pin.PULL_UP))
-        self._sensor = DS18X20(ow)
-        self.value: float | None = None
+    def __init__(self, config: object) -> None:
+        if type(config) == Dict and "pin" in config:
+            ow = onewire.OneWire(Pin(config["pin"], Pin.PULL_UP))
+            self._sensor = DS18X20(ow)
+        else:
+            raise ValueError()
+        self.value: Union[float, None] = None
         self._setup()
         self.read()
+        super().__init__(config)
 
     def _setup(self) -> None:
         self._roms = self._sensor.scan()
 
     def read(self) -> None:
         if len(self._roms) == 0:
-            self.setup()
+            self._setup()
 
         if len(self._roms) > 0:
             try:

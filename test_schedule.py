@@ -28,13 +28,12 @@ class ScheduleTestCase(unittest.TestCase):
         return super().setUp()
 
     def test_process_config(self):
-        self.assertEqual(self.schedule._slots, [
+        self.assertEqual(self.schedule._slots, [  # pylint: disable=protected-access
             [28800, 16],
             [37800, 12],
             [75600, 18],
             [80100, 13]
         ])
-        self.assertFalse(False)
 
     def test_setpoint(self):
         self.fake_clock.fake_time = 0

@@ -20,3 +20,18 @@ upload:
 .PHONY: test
 test:
 	python -m unittest --verbose
+
+.PHONY: lint
+lint:
+	pylint --recursive=y temperature_sensor ./*.py
+
+.PHONY: ruff
+ruff:
+	ruff check .
+
+.PHONY: mypy
+mypy:
+	mypy --exclude scripts --exclude test --exclude stubs --check-untyped-defs .
+
+.PHONY: check
+check: lint ruff mypy

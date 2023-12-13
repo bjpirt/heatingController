@@ -1,9 +1,9 @@
-import asyncio
+from typing import Union
 
 
 class TemperatureSensor:
-    def __init__(self, pin: int) -> None:
-        self.value: int | None = None
+    def __init__(self, config: object) -> None:  # pylint: disable=unused-argument
+        self.value: Union[float, None] = None
 
-    async def read(self) -> float | None:
+    def read(self) -> Union[float, None]:
         pass
