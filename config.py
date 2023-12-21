@@ -1,4 +1,11 @@
-class Config:
+from lib import PersistentConfig
+try:
+    from initial_config import config   # type: ignore
+except ImportError:
+    config = {}
+
+
+class Config(PersistentConfig):
     def __init__(self) -> None:
         self.zones = {
             "upstairs": {
@@ -29,5 +36,8 @@ class Config:
             }
         }
 
-        self.wifi_ssid = "25Villiers"
-        self.wifi_password = "AudreyEuan25"
+        self.wifi_ssid = ""
+        self.wifi_password = ""
+        self.wifi_enabled = False
+
+        super().__init__(config)
